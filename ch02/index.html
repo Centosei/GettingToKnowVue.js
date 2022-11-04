@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Getting to Know Vue.js</title>
+  </head>
+  <body>
+    <!--Div to Mount App-->
+    <div id="app">{{ propertyName }}</div>
+
+    <div id="app2">{{ propertyName }}</div>
+
+    <div id="app3">This will be replaced</div>
+
+    <div id="app4">This will be replaced</div>
+
+    <div id="app5">
+        <p>emptyObject: {{ emptyObject }}</p>
+        <p>emptyString: {{ emptyString }}</p>
+        <p>nullProperty: {{ nullProperty }}</p>
+    </div>
+
+    <div id="app6">This will be replaced</div>
+
+    <div id="app7">This will be replaced</div>
+
+    <div id="app8">This will be replaced</div>
+
+    <div id="app9">This will be replaced</div>
+
+    <div id="app10">This will be replaced</div>
+
+    <!--Reference to Vue.js library-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.13/dist/vue.js"></script>
+
+    <!--Script Element for our first App-->
+    <script>
+        // CSS Selector
+        var app = new Vue({
+            el: "#app",
+            data: {
+                propertyName: "Hello from Getting to Know Vue.js! This was mounted by passing in an CSS Selector",
+            },
+        });
+        // HTML Element
+        var element = document.getElementById('app2');
+        var app2 = new Vue({
+            el: element,
+            data: {
+                propertyName: 'Hello from Getting to Know Vue.js! This was mounted by passing in an HTMLElement'
+            }
+        });
+        // Template
+        var app3 = new Vue({
+            el: '#app3',
+            data: {
+                propertyName: 'Hello from Getting to Know Vue.js! Using a template!'
+            },
+            template: '<div>{{ propertyName }}</div>'
+        });
+    </script>
+        
+    <!-- Script Element for our Template -->
+    <script id='myTemplate' type='x-template'>
+        <div>
+            From Script Element Template: {{ propertyName }}
+        </div>
+    </script>
+    <!-- Script Element for our App -->
+    <script>
+        var app4 = new Vue({
+            el: '#app4',
+            data: {
+                propertyName: 'Hello from Getting to Know Vue.js! Using a template!'
+            },
+            template: '#myTemplate'
+        });
+        // empty property
+        var app5 = new Vue({
+            el: '#app5',
+            data: {
+                emptyObject: {},
+                emptyString: '',
+                nullProperty: null
+            }
+        });
+        // method declaration
+        var app6 = new Vue({
+            el: '#app6',
+            methods: {
+                useClickedAButton: function () {
+                    // Do something cool and meaningful here!!!
+                    console.log('Something Cool');
+                },
+                capitalizeText: function () {
+                    return this.text.toUpperCase();
+                }
+            },
+            data: {
+                text: 'Getting to Know Vue.js'
+            },
+            template: `<div>{{ capitalizeText() }}</div>`,
+        });
+        // computed property
+        var app7 = new Vue({
+            el: '#app7',
+            data: {
+                text: 'Getting to Know Vue.js'
+            },
+            template: `<div>{{ capitalizedText }}</div>`,
+            computed: {
+                capitalizedText: function () {
+                    return this.text.toUpperCase();
+                }
+            }
+        });
+        // javascript expressions
+        var app8 = new Vue({
+            el: '#app8',
+            data: {
+                yes: 'Yes it is!',
+                no: 'No it is not!',
+                falseValue: false
+            },
+            template: `
+                <div>
+                    <div>{{ 1 + 1 }}</div>
+                    <div>{{ falseValue === false ? yes : no }}</div>
+                    <div>{{ 1 == 2 ? yes : no }}</div>
+                    <div>{{ 1 + 1 + 1 > 2 ? yes : no }}</div>
+                    <div>{{ 'Getting to Know Vue.js'.toUpperCase() }}</div>
+                </div>
+                `
+        });
+        // v-bind
+        var app9 = new Vue({
+            el: '#app9',
+            data: {
+                myName: 'Cool Name'
+            },
+            template: `
+                <div>
+                    <div v-bind:name="myName">app9</div>
+                </div>
+                `
+        });
+        // binding HTML
+        var app10 = new Vue({
+            el: '#app10',
+            data: {
+                someHTML: '<h1 style="color:#41b883; background-color:#35495e;">Getting to Know Vue.js</h1>'
+            },
+            template: `
+                <div>
+                    <div>{{ someHTML }}</div>
+                    <div v-html="someHTML"></div>
+                </div>
+                `
+        });
+    </script>
+  </body>
+</html>
